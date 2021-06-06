@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class Main {
     static ArrayList<Departamento> departamento = new ArrayList<Departamento>();
-    static ArrayList<Curso> curso = new ArrayList<Curso>();
+    static ArrayList<Curso> cursos = new ArrayList<Curso>();
     static ArrayList<Disciplina> disciplina = new ArrayList<Disciplina>();
     static ArrayList<Aluno> aluno = new ArrayList<Aluno>();
     static ArrayList<Historico> historico = new ArrayList<Historico>();
@@ -28,8 +28,8 @@ public class Main {
         departamento.add(new Departamento("Departamento de Informática", "(31) 3741-3741", 123456,1));
         departamento.add(new Departamento("Departamento de Administração", "(31) 3741-1473", 123456,1));
         
-        curso.add(new Curso ("Técnico em Informática", "O aluno criará um software do zero", 1, 250, 1, departamento.get(0)));
-        curso.add(new Curso ("Bacharelado em Administração", "O aluno aprenderá a gerir uma empresa", 2, 220, 1, departamento.get(1)));
+        cursos.add(new Curso ("Técnico em Informática", "O aluno criará um software do zero", 1, 250, 1, departamento.get(0)));
+        cursos.add(new Curso ("Bacharelado em Administração", "O aluno aprenderá a gerir uma empresa", 2, 220, 1, departamento.get(1)));
         
         LocalDate data = LocalDate.now();//O mes e ano são pegos para serem usados no cadastro de novas disciplinas a fim de não repetir toda hora os mesmos calculos
         data.getYear();
@@ -38,11 +38,11 @@ public class Main {
             semestre=2;
         }
         
-        disciplina.add(new Disciplina ("Prof1", semestre, ano, 1, curso.get(0)));//Programação 1
-        disciplina.add(new Disciplina ("Prof2", semestre, ano, 2, curso.get(0)));//Programação OO
-        disciplina.add(new Disciplina ("Prof3", semestre, ano, 3, curso.get(0)));//Tópicos em Desenvolvimento
-        disciplina.add(new Disciplina ("Prof4", semestre, ano, 1, curso.get(1)));//Gestão Empresarial
-        disciplina.add(new Disciplina ("Prof5", semestre, ano, 2, curso.get(1)));//Gestão Ambiental
+        disciplina.add(new Disciplina ("Prof1", semestre, ano, 1, cursos.get(0)));//Programação 1
+        disciplina.add(new Disciplina ("Prof2", semestre, ano, 2, cursos.get(0)));//Programação OO
+        disciplina.add(new Disciplina ("Prof3", semestre, ano, 3, cursos.get(0)));//Tópicos em Desenvolvimento
+        disciplina.add(new Disciplina ("Prof4", semestre, ano, 1, cursos.get(1)));//Gestão Empresarial
+        disciplina.add(new Disciplina ("Prof5", semestre, ano, 2, cursos.get(1)));//Gestão Ambiental
         
         aluno.add(new Aluno ("Matheus Peixoto", "0011111", "111.111.111-11", "Rua Ficticia, 1, centro", "123456789", "Veterano", "Graduação", LocalDate.of(2003, 10, 29), 'M', departamento.get(0), null));
         historico.add(new Historico(aluno.get(0), disciplina.get(0), null, 0));
@@ -90,7 +90,7 @@ public class Main {
         do{
             System.out.print("1 - Cadastro de Disciplina. \n2 - Matricular Aluno em disciplina. \n3 - Registrar nota de aluno na disciplina. \n4 - Lista de alunos aprovados e reprovados.\n5 - Informações de alunos\n6 - Sair.\nDigite o número do menu para qual você deseja ir: ");
             opcao=tecladoNumerico.nextInt();
-            if(opcao<1){
+            if(opcao<1 && opcao>6){
                 System.out.println("\nDigite um valor válido.");
             }
             else{//São os menus para onde o usuário pode ir 
@@ -142,7 +142,7 @@ public class Main {
                 }
             } 
         }
-        //Verifica qual o curso do aluno para matriculá-lo na disciplina correta
+        //Verifica qual o cursos do aluno para matriculá-lo na disciplina correta
         Curso curso=verificarCurso();
         
         Disciplina discTemp = null;//Variavel temporaria para verificar a disciplina do aluno 
@@ -150,7 +150,7 @@ public class Main {
             System.out.print("Digite a DISCIPLINA para matricular "+alunoTemp.getNome()+": ");
             int materia = tecladoNumerico.nextInt(); // Disciplina escolhida
             for(Disciplina disc: disciplina){
-                if(materia == disc.getNumeroDisciplina() & disc.getCurso().equals(curso)){// Verifica se a disciplina e o curso estão de acordos 
+                if(materia == disc.getNumeroDisciplina() & disc.getCurso().equals(curso)){// Verifica se a disciplina e o cursos estão de acordos 
                     discTemp=disc;
                 }
             }
@@ -165,7 +165,7 @@ public class Main {
     }
     
     public static void registrarNotaAluno(){
-        //Verifica qual o curso que a matéria se encontra
+        //Verifica qual o cursos que a matéria se encontra
         Curso curso=verificarCurso();
         
         Disciplina discTemp = null;//Variavel temporaria para verificar a disciplina do aluno 
@@ -173,7 +173,7 @@ public class Main {
             System.out.print("Digite o código DISCIPLINA para dar nota ao aluno: ");
             int materia = tecladoNumerico.nextInt(); // Disciplina escolhida
             for(Disciplina disc: disciplina){
-                if(materia == disc.getNumeroDisciplina() & disc.getCurso().equals(curso)){// Verifica se a disciplina e o curso estão de acordos 
+                if(materia == disc.getNumeroDisciplina() & disc.getCurso().equals(curso)){// Verifica se a disciplina e o cursos estão de acordos 
                     discTemp=disc;
                 }
             }
@@ -233,7 +233,7 @@ public class Main {
     }
     
     public static void aprovadosReprovados(){
-        //Verifica qual o curso que a matéria se encontra
+        //Verifica qual o cursos que a matéria se encontra
         Curso curso=verificarCurso();
 
         
@@ -243,7 +243,7 @@ public class Main {
             System.out.print("Digite o código DISCIPLINA para ver as notas: ");
             materia = tecladoNumerico.nextInt(); // Disciplina escolhida
             for(Disciplina disc: disciplina){
-                if(materia == disc.getNumeroDisciplina() & disc.getCurso().getNome().equals(curso.getNome())){// Verifica se a disciplina e o curso estão de acordos 
+                if(materia == disc.getNumeroDisciplina() & disc.getCurso().getNome().equals(curso.getNome())){// Verifica se a disciplina e o cursos estão de acordos 
                     discTemp=disc;
                 }
             }
@@ -282,8 +282,8 @@ public class Main {
         Curso c=null;//Variavel c(urso) recebe um valor nulo
         while(c==null){//O usuário fica preso no loop até escrever um valor correto
             System.out.print("Digite o curso da disciplina: ");
-            String nomeCurso = tecladoAlfabeto.nextLine(); //É pego o nome do curso
-            for(Curso verificar : curso){ //Compara o nome escrito pelo usuário com o nome dos outros cursos já cadastrados no sistema
+            String nomeCurso = tecladoAlfabeto.nextLine(); //É pego o nome do cursos
+            for(Curso verificar : cursos){ //Compara o nome escrito pelo usuário com o nome dos outros cursos já cadastrados no sistema
                 if(verificar.getNome().equals(nomeCurso)){
                     c=verificar;//variavel c(urso) tem seu valor alterado para ser usado na verificação das disciplinas
                 }
