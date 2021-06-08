@@ -38,11 +38,11 @@ public class Main {
             semestre=2;
         }
         
-        disciplina.add(new Disciplina ("Prof1", semestre, ano, 1, cursos.get(0)));//Programação 1
-        disciplina.add(new Disciplina ("Prof2", semestre, ano, 2, cursos.get(0)));//Programação OO
-        disciplina.add(new Disciplina ("Prof3", semestre, ano, 3, cursos.get(0)));//Tópicos em Desenvolvimento
-        disciplina.add(new Disciplina ("Prof4", semestre, ano, 1, cursos.get(1)));//Gestão Empresarial
-        disciplina.add(new Disciplina ("Prof5", semestre, ano, 2, cursos.get(1)));//Gestão Ambiental
+        disciplina.add(new Disciplina ("Prof1","Progrmação 1", semestre, ano, 1, cursos.get(0)));//Programação 1
+        disciplina.add(new Disciplina ("Prof2","Progrmação OO", semestre, ano, 2, cursos.get(0)));//Programação OO
+        disciplina.add(new Disciplina ("Prof3","Tópicos em Desenvolvimento", semestre, ano, 3, cursos.get(0)));//Tópicos em Desenvolvimento
+        disciplina.add(new Disciplina ("Prof4","Gestão empresarial", semestre, ano, 1, cursos.get(1)));//Gestão Empresarial
+        disciplina.add(new Disciplina ("Prof5","Gestão Ambiental", semestre, ano, 2, cursos.get(1)));//Gestão Ambiental
         
         aluno.add(new Aluno ("Matheus Peixoto", "0011111", "111.111.111-11", "Rua Ficticia, 1, centro", "123456789", "Veterano", "Graduação", LocalDate.of(2003, 10, 29), 'M', departamento.get(0), null));
         historico.add(new Historico(aluno.get(0), disciplina.get(0), null, 0));
@@ -120,11 +120,14 @@ public class Main {
         
         Curso curso=verificarCurso();
         
+        System.out.print("Digite o nome da disciplina: ");
+        String nomeDisciplina = tecladoAlfabeto.nextLine();
+        
         System.out.print("Digite o nome do professor da disciplina: ");
         String professor = tecladoAlfabeto.nextLine();
         
-        disciplina.add(new Disciplina(professor, semestre, ano, numero, curso));
-        System.out.println("\nDisciplina "+numero+" do curso "+curso.getNome()+" adicionada ao sistema.\n");//Retorno de cadastro feito para o usuário
+        disciplina.add(new Disciplina(professor, nomeDisciplina, semestre, ano, numero, curso));
+        System.out.println("\nDisciplina "+numero+" do curso "+curso.getNome()+" adicionada ao sistema.\n");
     }
     
     public static void matricularAlunoNaDisciplina(){//O aluno é matriculado na disciplina
@@ -135,7 +138,7 @@ public class Main {
             System.out.print("\nDigite o número da matrícula do aluno a ser cadastrado: ");
             String numMatricula = tecladoAlfabeto.nextLine();
             for(Aluno verificar : aluno){
-                cont++;
+                cont++;//Seu valor é aumentado a cada aluno que percorre
                 if(verificar.getNumeroMatricula().equals(numMatricula)){
                     alunoTemp=verificar;
                     posicaoAluno=cont;
@@ -160,7 +163,7 @@ public class Main {
         historico.get(posicaoAluno).addNotaConceito(null);
         
         
-        System.out.println("\nAluno "+alunoTemp.getNome()+" foi matriculado na disciplina "+discTemp.getNumeroDisciplina()+" do curso "+curso.getNome()+"\n");
+        System.out.println("\nAluno "+alunoTemp.getNome()+" foi matriculado na disciplina "+discTemp.getNome()+" do curso "+curso.getNome()+"\n");
         
     }
     
@@ -182,8 +185,8 @@ public class Main {
         while(alunoTemp==null){ //Enquanto a variavel alunoTemp for nula, o programa ficará num loop até que um valor verdadeiro seja encontrado
             System.out.print("Digite o número da matrícula do aluno que vai receber a nota: ");
             String numMatricula = tecladoAlfabeto.nextLine();
-            for(Aluno verificar : aluno){
-                if(verificar.getNumeroMatricula().equals(numMatricula)){
+            for(Aluno verificar : aluno){//Percorre o ArrayList aluno
+                if(verificar.getNumeroMatricula().equals(numMatricula)){//Verifica se a matrícula do ArrayList é a mesma passado pelo usuário a fim de encontrar o aluno correto 
                     alunoTemp=verificar;
                 }
             } 
@@ -211,11 +214,11 @@ public class Main {
             notaConceito="A";
         }
         
-        for(Historico hist: historico){
-            if(hist.getAluno().equals(alunoTemp)){
-                int posicaoDisc=0;
+        for(Historico hist: historico){//Descobre em qual posicao do ArrayList a disciplina solicitada está
+            if(hist.getAluno().equals(alunoTemp)){//Ao percorre o vetor, vai até o aluno solicitado pelo usuário
+                int posicaoDisc=0;//Esse valor serve para alterar na posição correta do ArrayList
                 for(int i=0; i<hist.getDisciplinas().size();i++){
-                    if(hist.getDisciplinas().get(i).getNumeroDisciplina()==discTemp.getNumeroDisciplina()){ 
+                    if(hist.getDisciplinas().get(i).getNumeroDisciplina()==discTemp.getNumeroDisciplina()){ //Verifica se a disciplina é a solicitada
                         posicaoDisc=i;
                     }
                 }
@@ -226,7 +229,7 @@ public class Main {
                 System.out.println("Nota "+hist.getNotaNumerica().get(posicaoDisc)+" ou "
                         +hist.getNotaConceito().get(posicaoDisc)+" atribuida ao aluno "
                         +hist.getAluno().getNome()+" na disciplina "
-                        +hist.getDisciplinas().get(posicaoDisc).getNumeroDisciplina()+ 
+                        +hist.getDisciplinas().get(posicaoDisc).getNome()+ 
                         " do curso "+curso.getNome()+".\n");
             }
         }
@@ -243,13 +246,13 @@ public class Main {
             System.out.print("Digite o código DISCIPLINA para ver as notas: ");
             materia = tecladoNumerico.nextInt(); // Disciplina escolhida
             for(Disciplina disc: disciplina){
-                if(materia == disc.getNumeroDisciplina() & disc.getCurso().getNome().equals(curso.getNome())){// Verifica se a disciplina e o cursos estão de acordos 
+                if(materia == disc.getNumeroDisciplina() & disc.getCurso().getNome().equals(curso.getNome())){// Verifica se a disciplina e o curso são os que o usuário passou
                     discTemp=disc;
                 }
             }
         }
         System.out.println("");
-
+        System.out.println("Alunos aprovados e reprovados na disciplina "+discTemp.getNome());
         for(Historico h: historico){//Verifica as disciplinas e cursos estão de acordos com o que foi pedido para ser mostrado
             for(int i=0; i<h.getDisciplinas().size();i++){
                 if(h.getDisciplinas().get(i).getNumeroDisciplina()== materia){
@@ -269,12 +272,13 @@ public class Main {
     }
     
     public static void mostrarTudo(){//Exibe o nome, matriculas em disciplinas e as notas do usuário
+        System.out.println("");
         for(Historico h: historico){
             System.out.println(h.getAluno().getNome());
             for(int i=0; i<h.getDisciplinas().size();i++){
-                System.out.println("Nº disciplina: "+h.getDisciplinas().get(i).getNumeroDisciplina() + " --- Curso disciplina: "+h.getDisciplinas().get(i).getCurso().getNome()+" --- Notas: "+h.getNotaConceito().get(i) + " --- Notas: "+h.getNotaNumerica().get(i));
+                System.out.println("Nº disciplina: "+h.getDisciplinas().get(i).getNumeroDisciplina() +" --- Nome da disciplina: "+h.getDisciplinas().get(i).getNome()+ " --- Curso disciplina: "+h.getDisciplinas().get(i).getCurso().getNome()+" --- Notas: "+h.getNotaConceito().get(i) + " --- Notas: "+h.getNotaNumerica().get(i));
             }
-            System.out.println("==============");
+            System.out.println("==============\n");
             
         }
     }

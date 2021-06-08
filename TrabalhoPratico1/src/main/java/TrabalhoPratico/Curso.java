@@ -11,13 +11,13 @@ package objetos;
  */
 public class Curso {
     private String nome, descricao;
-    private int numeCursos, horasSemestrais, nivel;
+    private int numeroCurso, horasSemestrais, nivel;
     private Departamento departamentoResp;
 
     public Curso(String nome, String descricao, int numeCursos, int horasSemestrais, int nivel, Departamento departamentoResp) {
         this.nome = nome;
         this.descricao = descricao;
-        this.numeCursos = numeCursos;
+        this.numeroCurso = numeCursos;
         this.horasSemestrais = horasSemestrais;
         this.nivel = nivel;
         this.departamentoResp = departamentoResp;
@@ -29,8 +29,8 @@ public class Curso {
     public String getDescricao() {
         return descricao;
     }
-    public int getNumeCursos() {
-        return numeCursos;
+    public int getNumeroCurso() {
+        return numeroCurso;
     }
     public int getHorasSemestrais() {
         return horasSemestrais;
@@ -48,8 +48,8 @@ public class Curso {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public void setNumeCursos(int numeCursos) {
-        this.numeCursos = numeCursos;
+    public void setNumeroCurso(int numeroCurso) {
+        this.numeroCurso = numeroCurso;
     }
     public void setHorasSemestrais(int horasSemestrais) {
         this.horasSemestrais = horasSemestrais;

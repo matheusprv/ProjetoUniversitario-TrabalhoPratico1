@@ -46,10 +46,7 @@ public class Departamento {
         this.numeroSala = numeroSala;
     }
 
-    @Override
-    public String toString() {
-        return "Departamento{" + "nome=" + nome + ", telefoneSala=" + telefoneSala + ", codigo=" + codigo + ", numeroSala=" + numeroSala + '}';
-    }
+
     
     
     
